@@ -11,6 +11,7 @@ module.exports = router;
 
 router.post('/', function(req, res, next) {
 	const user = {
+    userid: req.body.userid,
     name: req.body.name,
 		age: req.body.age,
 		sex: req.body.sex,
