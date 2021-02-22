@@ -10,6 +10,7 @@ var insert_profile = require('./routes/InsertProfile');
 var get_profile = require('./routes/GetProfile');
 var insert_post = require('./routes/InsertPost');
 var get_post = require('./routes/GetPost');
+var get_key = require('./routes/GetKey');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/InsertProfile', insert_profile);
 app.use('/GetProfile', get_profile);
 app.use('/InsertPost', insert_post);
 app.use('/GetPost', get_post);
+app.use('/GetKey', get_key);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
