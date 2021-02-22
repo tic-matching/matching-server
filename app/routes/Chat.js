@@ -43,7 +43,7 @@ function saveMessage(messageText) {
     const message = {
       from: req.body.userid,
       text: messageText,
-      timestamp: dt.toFormat("YYYYMMDDHH24MISS");
+      timestamp: dt.toFormat("YYYYMMDDHH24MISS")
     }
     push.data_push("chatroom", message);
     res.status(200).send(message);
