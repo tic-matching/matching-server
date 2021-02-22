@@ -14,27 +14,20 @@ module.exports = router;
 /*
 chatroom {
     roomA {
-        from : "Taro"
-        to : "Ken"
+        users: {"Taro", "Ken"}
         messages {
-            message1 {            
+            message1 {
                 from : "Taro"
                 message : "Hello"
 */
 
-function makeChatroom(){
     router.post('/', function(req, res, next) {
-        const chat = {
-        userid: req.body.userid,
-        userid2: req.body.userid2
-    
-        }
-    
         // ここにFirebaseへのデータ追加関数呼び出しを書く
-        push.data_push("chatroom",chat);
-        res.status(200).send(chat);
+        const userid = req.body.userid;
+        push.data_push("chatroom/users",userid);
+        res.status(200).send(userid);
     })
-}
+
 
 
 function saveMessage(messageText) {
@@ -45,7 +38,7 @@ function saveMessage(messageText) {
       text: messageText,
       timestamp: dt.toFormat("YYYYMMDDHH24MISS")
     }
-    push.data_push("chatroom", message);
+    push.data_push("chatroom/messages", message);
     res.status(200).send(message);
 }
 

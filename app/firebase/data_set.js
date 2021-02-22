@@ -3,11 +3,13 @@ var admin = require("firebase-admin");
 // 1. サービスアカウント鍵を生成しserviceAccountKey.jsonでリネームしてフォルダ直下に配置
 var serviceAccount = require("./serviceAccountKey.json");
 
-admin.initializeApp({
+if (admin.apps.length === 0) {
+  admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  // 2. Realtime DatabaseのページでdatabaseURLを確認して反映
-  databaseURL: "https://tic-matching-default-rtdb.firebaseio.com/"
-});
+    // 2. Realtime DatabaseのページでdatabaseURLを確認して反映
+    databaseURL: "https://tic-matching-default-rtdb.firebaseio.com/"
+  });
+}
 
 var db = admin.database();
 var ref = db.ref("server/saving-data");
