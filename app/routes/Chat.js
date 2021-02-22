@@ -21,24 +21,28 @@ chatroom {
                 message : "Hello"
 */
 
-    router.post('/', function(req, res, next) {
-        // ここにFirebaseへのデータ追加関数呼び出しを書く
-        const userid = req.body.userid;
-        push.data_push("chatroom/users",userid);
-        res.status(200).send(userid);
-    })
+function makeChatroom(userid){
+    // ここにFirebaseへのデータ追加関数呼び出しを書く
+    const user_array = [];
+    user_array.push(userid);
+    const chatroom = {
+        users: user_array
+    };
+    push.data_push("/chatroom",chatroom);
+    res.status(200).send(chatroom);
+}
 
 
-
-function saveMessage(messageText) {
+function saveMessage(userId, messageText, chatroomId){
     var dt = new Date();
     // Add a new message entry to the database.
     const message = {
-      from: req.body.userid,
-      text: messageText,
+      from: userId,
+      message: messageText,
       timestamp: dt.toFormat("YYYYMMDDHH24MISS")
     }
-    push.data_push("chatroom/messages", message);
+    console.log(message)
+    push.data_push("chatroom/" + chatroomId + "/messages", message);
     res.status(200).send(message);
 }
 
