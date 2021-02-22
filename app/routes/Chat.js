@@ -1,3 +1,4 @@
+require('date-utils');
 var express = require('express');
 var router = express.Router();
 var push = require('../firebase/data_push.js');
@@ -6,6 +7,7 @@ var set = require('../firebase/data_set.js');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
 
 module.exports = router;
 
@@ -32,5 +34,18 @@ function makeChatroom(){
         push.data_push("chatroom",chat);
         res.status(200).send(chat);
     })
+}
+
+
+function saveMessage(messageText) {
+    var dt = new Date();
+    // Add a new message entry to the database.
+    const message = {
+      from: req.body.userid,
+      text: messageText,
+      timestamp: dt.toFormat("YYYYMMDDHH24MISS");
+    }
+    push.data_push("chatroom", message);
+    res.status(200).send(message);
 }
 
