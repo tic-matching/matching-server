@@ -12,7 +12,7 @@ module.exports = router;
 
 router.post('/', async function(req, res, next) {
 	const user = {
-    userid: req.body.userid,
+    mail: req.body.mail,
     name: req.body.name,
 		age: req.body.age,
 		gender: req.body.gender,
@@ -25,7 +25,7 @@ router.post('/', async function(req, res, next) {
 
 	const data = await get.key_get({
 		password: req.body.password, 
-		name: req.body.name
+		mail: req.body.mail
 	});
   console.log(data);
   res.status(200).json(data);
