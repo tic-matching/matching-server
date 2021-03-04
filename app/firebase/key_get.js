@@ -17,7 +17,7 @@ exports.key_get = async function(post) {
   var db = admin.database();
   var ref = db.ref("users");
   var userRef = ref.orderByChild("mail").equalTo(post.mail);
-  await userRef.once('child_added', (snapshot, prevChildKey) => {
+  await userRef.once('child_added', (snapshot) => {
     filter = snapshot.val();
     if (filter.password == post.password){
       key = snapshot.key;
