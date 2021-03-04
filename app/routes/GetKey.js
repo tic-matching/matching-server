@@ -11,7 +11,7 @@ module.exports = router;
 
 router.post('/', async function(req, res, next) {
 	const post = {
-    name: req.body.name,
+    mail: req.body.mail,
     password: req.body.password
 	}
 

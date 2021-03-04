@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var push = require('../firebase/data_push.js');
 var set = require('../firebase/data_set.js');
+var get = require('../firebase/key_get.js');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -9,17 +10,23 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
 	const user = {
-    userid: req.body.userid,
+    mail: req.body.mail,
     name: req.body.name,
 		age: req.body.age,
-		sex: req.body.sex,
+		gender: req.body.gender,
 		faculty: req.body.faculty,
 		password: req.body.password
 	}
 
 	// ここにFirebaseへのデータ追加関数呼び出しを書く
-	push.data_push("users",user);
-	res.status(200).send(user);
+	await push.data_push("users",user);
+
+	const data = await get.key_get({
+		password: req.body.password, 
+		mail: req.body.mail
+	});
+  console.log(data);
+  res.status(200).json(data);
 })

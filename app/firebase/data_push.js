@@ -11,18 +11,19 @@ if (admin.apps.length === 0) { //2重起動防止
   });
 }
 
-exports.data_push = function(category, data) {
+exports.data_push = async function(category, data) {
 
   var db = admin.database();
   var ref = db.ref(category);
 
   ref.push(data);
 
-  ref.on("value", function(snapshot) {
+  await ref.on("value", function(snapshot) {
       console.log("value Changed!!!");
       console.log(snapshot.val());
   },
   function(errorObject) {
       console.log("failed: " + errorObject.code);
   } );
+  return;
 };
