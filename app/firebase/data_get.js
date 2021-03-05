@@ -11,10 +11,19 @@ if (admin.apps.length === 0) { //2重起動防止
   });
 }
 
-exports.data_get = async function(category, doc) {
+exports.data_get = async function(post) {
   var data;
   var db = admin.database();
-  var ref = db.ref(category + doc.doc);
+  var ref;
+
+  if(post.category === "users"){
+    ref = db.ref(post.category + "/" + post.id);
+    console.log(post.doc);
+  }
+  if(post.category === "posts"){
+    ref = db.ref(post.category);
+  }
+
   await ref.once('value', (snapshot) => {
     data = snapshot.val();
   });

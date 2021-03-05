@@ -10,11 +10,12 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 router.post('/', async function(req, res, next) {
-	const doc = {
-    doc: req.body.doc
+	const post = {
+    id: req.body.userid,
+    category: "users"
 	}
 
-  const data = await get.data_get("users/", doc);
+  const data = await get.data_get(post);
   console.log(data);
   res.status(200).json(data);
 });
